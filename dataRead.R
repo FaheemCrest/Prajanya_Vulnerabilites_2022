@@ -1,20 +1,26 @@
 library(rjson)
+
+data<- data.frame(matrix(nrow = 0,ncol = 12))
+colnames(data) <- c("desciption","year","baseScore","severity","exploitabilityScore"
+                    ,"impactScore","confidentialityImpact","integrityImpact",
+                    "availabilityImpact","accessVector","assigner","CWE")
+data[nrow(data) + 1, ] <- c("","","","","","","","","","","","") 
+
+
 nvd <- fromJSON(file = "~/Documents/topics/data/nvdcve-1.1-2022.json")
 nvdDataFrame <- do.call(cbind,nvd$CVE_Items) 
 nvdDataFrame <- as.data.frame(nvdDataFrame)
-data<- data.frame(matrix(nrow = 0,ncol = 11))
-colnames(data) <- c("desciption","year","baseScore","severity","exploitabilityScore"
-                    ,"impactScore","confidentialityImpact","integrityImpact",
-                    "availabilityImpact","accessVector","assigner")
-data[nrow(data) + 1, ] <- c("","","","","","","","","","","") 
-
+nvdDataFrame <- subset(nvdDataFrame, select = -c(V103,V143))
+count <-0
 for (i in nvdDataFrame) {
+  count<- count+1
   newRow<-c(i$cve$description$description_data[[1]]$value,"2022",
             i$impact$baseMetricV2$cvssV2$baseScore,i$impact$baseMetricV2$severity,
             i$impact$baseMetricV2$exploitabilityScore,i$impact$baseMetricV2$impactScore,
             i$impact$baseMetricV3$cvssV3$confidentialityImpact,i$impact$baseMetricV3$cvssV3$integrityImpact,
             i$impact$baseMetricV3$cvssV3$availabilityImpact,
-            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER)
+            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER,
+            i$cve$problemtype$problemtype_data[[1]]$description[[1]]$value)
   data<-rbind(data,newRow)
 }
 
@@ -27,7 +33,8 @@ for (i in nvdDataFrame) {
             i$impact$baseMetricV2$exploitabilityScore,i$impact$baseMetricV2$impactScore,
             i$impact$baseMetricV3$cvssV3$confidentialityImpact,i$impact$baseMetricV3$cvssV3$integrityImpact,
             i$impact$baseMetricV3$cvssV3$availabilityImpact,
-            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER)
+            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER,
+            i$cve$problemtype$problemtype_data[[1]]$description[[1]]$value)
   data<-rbind(data,newRow)
 }
 
@@ -40,7 +47,8 @@ for (i in nvdDataFrame) {
             i$impact$baseMetricV2$exploitabilityScore,i$impact$baseMetricV2$impactScore,
             i$impact$baseMetricV3$cvssV3$confidentialityImpact,i$impact$baseMetricV3$cvssV3$integrityImpact,
             i$impact$baseMetricV3$cvssV3$availabilityImpact,
-            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER)
+            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER,
+            i$cve$problemtype$problemtype_data[[1]]$description[[1]]$value)
   data<-rbind(data,newRow)
 }
 
@@ -53,7 +61,8 @@ for (i in nvdDataFrame) {
             i$impact$baseMetricV2$exploitabilityScore,i$impact$baseMetricV2$impactScore,
             i$impact$baseMetricV3$cvssV3$confidentialityImpact,i$impact$baseMetricV3$cvssV3$integrityImpact,
             i$impact$baseMetricV3$cvssV3$availabilityImpact,
-            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER)
+            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER,
+            i$cve$problemtype$problemtype_data[[1]]$description[[1]]$value)
   data<-rbind(data,newRow)
 }
 
@@ -66,7 +75,8 @@ for (i in nvdDataFrame) {
             i$impact$baseMetricV2$exploitabilityScore,i$impact$baseMetricV2$impactScore,
             i$impact$baseMetricV3$cvssV3$confidentialityImpact,i$impact$baseMetricV3$cvssV3$integrityImpact,
             i$impact$baseMetricV3$cvssV3$availabilityImpact,
-            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER)
+            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER,
+            i$cve$problemtype$problemtype_data[[1]]$description[[1]]$value)
   data<-rbind(data,newRow)
 }
 
@@ -79,7 +89,8 @@ for (i in nvdDataFrame) {
             i$impact$baseMetricV2$exploitabilityScore,i$impact$baseMetricV2$impactScore,
             i$impact$baseMetricV3$cvssV3$confidentialityImpact,i$impact$baseMetricV3$cvssV3$integrityImpact,
             i$impact$baseMetricV3$cvssV3$availabilityImpact,
-            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER)
+            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER,
+            i$cve$problemtype$problemtype_data[[1]]$description[[1]]$value)
   data<-rbind(data,newRow)
 }
 
@@ -92,7 +103,8 @@ for (i in nvdDataFrame) {
             i$impact$baseMetricV2$exploitabilityScore,i$impact$baseMetricV2$impactScore,
             i$impact$baseMetricV3$cvssV3$confidentialityImpact,i$impact$baseMetricV3$cvssV3$integrityImpact,
             i$impact$baseMetricV3$cvssV3$availabilityImpact,
-            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER)
+            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER,
+            i$cve$problemtype$problemtype_data[[1]]$description[[1]]$value)
   data<-rbind(data,newRow)
 }
 
@@ -105,7 +117,8 @@ for (i in nvdDataFrame) {
             i$impact$baseMetricV2$exploitabilityScore,i$impact$baseMetricV2$impactScore,
             i$impact$baseMetricV3$cvssV3$confidentialityImpact,i$impact$baseMetricV3$cvssV3$integrityImpact,
             i$impact$baseMetricV3$cvssV3$availabilityImpact,
-            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER)
+            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER,
+            i$cve$problemtype$problemtype_data[[1]]$description[[1]]$value)
   data<-rbind(data,newRow)
 }
 
@@ -118,7 +131,8 @@ for (i in nvdDataFrame) {
             i$impact$baseMetricV2$exploitabilityScore,i$impact$baseMetricV2$impactScore,
             i$impact$baseMetricV3$cvssV3$confidentialityImpact,i$impact$baseMetricV3$cvssV3$integrityImpact,
             i$impact$baseMetricV3$cvssV3$availabilityImpact,
-            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER)
+            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER,
+            i$cve$problemtype$problemtype_data[[1]]$description[[1]]$value)
   data<-rbind(data,newRow)
 }
 
@@ -131,7 +145,8 @@ for (i in nvdDataFrame) {
             i$impact$baseMetricV2$exploitabilityScore,i$impact$baseMetricV2$impactScore,
             i$impact$baseMetricV3$cvssV3$confidentialityImpact,i$impact$baseMetricV3$cvssV3$integrityImpact,
             i$impact$baseMetricV3$cvssV3$availabilityImpact,
-            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER)
+            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER,
+            i$cve$problemtype$problemtype_data[[1]]$description[[1]]$value)
   data<-rbind(data,newRow)
 }
 
@@ -144,7 +159,8 @@ for (i in nvdDataFrame) {
             i$impact$baseMetricV2$exploitabilityScore,i$impact$baseMetricV2$impactScore,
             i$impact$baseMetricV3$cvssV3$confidentialityImpact,i$impact$baseMetricV3$cvssV3$integrityImpact,
             i$impact$baseMetricV3$cvssV3$availabilityImpact,
-            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER)
+            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER,
+            i$cve$problemtype$problemtype_data[[1]]$description[[1]]$value)
   data<-rbind(data,newRow)
 }
 
@@ -157,7 +173,8 @@ for (i in nvdDataFrame) {
             i$impact$baseMetricV2$exploitabilityScore,i$impact$baseMetricV2$impactScore,
             i$impact$baseMetricV3$cvssV3$confidentialityImpact,i$impact$baseMetricV3$cvssV3$integrityImpact,
             i$impact$baseMetricV3$cvssV3$availabilityImpact,
-            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER)
+            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER,
+            i$cve$problemtype$problemtype_data[[1]]$description[[1]]$value)
   data<-rbind(data,newRow)
 }
 
@@ -170,7 +187,8 @@ for (i in nvdDataFrame) {
             i$impact$baseMetricV2$exploitabilityScore,i$impact$baseMetricV2$impactScore,
             i$impact$baseMetricV3$cvssV3$confidentialityImpact,i$impact$baseMetricV3$cvssV3$integrityImpact,
             i$impact$baseMetricV3$cvssV3$availabilityImpact,
-            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER)
+            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER,
+            i$cve$problemtype$problemtype_data[[1]]$description[[1]]$value)
   data<-rbind(data,newRow)
 }
 
@@ -183,6 +201,7 @@ for (i in nvdDataFrame) {
             i$impact$baseMetricV2$exploitabilityScore,i$impact$baseMetricV2$impactScore,
             i$impact$baseMetricV3$cvssV3$confidentialityImpact,i$impact$baseMetricV3$cvssV3$integrityImpact,
             i$impact$baseMetricV3$cvssV3$availabilityImpact,
-            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER)
+            i$impact$baseMetricV2$cvssV2$accessVector,i$cve$CVE_data_meta$ASSIGNER,
+            i$cve$problemtype$problemtype_data[[1]]$description[[1]]$value)
   data<-rbind(data,newRow)
 }

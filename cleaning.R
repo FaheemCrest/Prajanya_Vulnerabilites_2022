@@ -25,6 +25,7 @@ data$assigner <- gsub(".ne", "\\1", data$assigner)
 data$assigner[nchar(data$assigner) < 5] <- NA
 
 
+
 hadoop<- data %>% filter(str_detect(data$desciption,"hadoop"))
 
 spark<-data %>% filter(str_detect(data$desciption,"spark"))
